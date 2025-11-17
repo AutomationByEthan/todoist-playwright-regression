@@ -3,8 +3,6 @@
 **I killed Katalon Studio in one week.**  
 This is the result.
 
-https://github.com/user-attachments/assets/8f3c5d1a-9b2d-4e1f-8c99-3e7f2a1b5d6c
-
 ### Features
 - 5 end-to-end tests (GUI + REST API)
 - 100% parallel execution (50+ workers) — zero flakiness
