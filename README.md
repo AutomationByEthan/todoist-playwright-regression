@@ -30,3 +30,5 @@ npm install
 npx playwright test                  # Run in headed mode
 npx playwright test --reporter=html  # Generate HTML report
 npx playwright show-report           # View report locally
+
+**Live Interactive Report** → [View full HTML report with screenshots & videos](https://raw.githack.com/AutomationByEthan/todoist-playwright-regression/main/playwright-report/index.html)
