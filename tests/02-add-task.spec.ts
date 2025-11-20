@@ -39,9 +39,11 @@ test.describe('02_Add a Task', () => {
 
     await attach(page, '02 - Task Filled In', testInfo);
     await page.getByRole('button', { name: 'Add task' }).click();
+        await page.waitForTimeout(1000);
 
     // === Go to Upcoming to see tomorrow's tasks ===
     await page.getByRole('link', { name: 'Upcoming' }).click();
+    await page.waitForTimeout(4000);
     await expect(page.getByRole('heading', { name: 'Upcoming' })).toBeVisible();
     await attach(page, '03 - Upcoming Page', testInfo);
 
