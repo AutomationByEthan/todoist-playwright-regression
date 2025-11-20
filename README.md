@@ -6,27 +6,28 @@ Production-grade example of clean, maintainable, **zero-flake** automated regres
 
 [![Playwright](https://img.shields.io/badge/Playwright-45ba4b?logo=playwright&logoColor=white)](https://playwright.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Tests](https://github.com/AutomationByEthan/todoist-playwright-regression/actions/workflows/ci.yml/badge.svg)](https://github.com/AutomationByEthan/todoist-playwright-regression/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## Key Features
-- **100% Parallel Execution**: With sharding for fast runs in CI/CD.
-- **Built-in HTML Reporter**: Embeds screenshots, videos, traces, and API responses for full auditability.
-- **Page Object Model**: Clean locators ensure zero flakiness—ideal for regulated environments.
-- **Ordered Tests**: Guarantees logical report sequence.
-- **Pure Playwright Best Practices**: No custom hacks; runs locally or in GitHub Actions/Jenkins.
-- **Compliance-Ready**: Designed for reproducible testing in federal/health IT contexts (e.g., PHI-safe workflows).
+- **100% Parallel Execution** – with sharding for fast CI runs
+- **Rich Built-in HTML Reporter** – screenshots, videos, trace viewer, API responses
+- **Page Object Model** – clean, resilient locators = zero flakiness
+- **Ordered Regression Flow** – logical sequence in reports
+- **Pure Playwright Best Practices** – runs locally, GitHub Actions, Jenkins, Azure DevOps
+- **Compliance-Ready** – designed for regulated environments (federal, health IT, PHI-safe)
 
-## Sample Report
-Click to view a full example:  
-**Live Interactive Report** → [View full report with screenshots & videos](https://raw.githack.com/AutomationByEthan/todoist-playwright-regression/main/playwright-report/index.html)
-*(Generated from real runs—includes embedded evidence for defect tracking.)*
+## Interactive HTML Report (with screenshots, videos & traces)
 
-## Quick Start
+The suite generates a full interactive Playwright dashboard on every run.
+
+**How to view it in 10 seconds (no install needed):**
+
+1. Click **Code** → **Download ZIP** (top-right of the repo)
+2. Unzip the folder
+3. Open `playwright-report/index.html` in your browser  
+   → Full interactive report with timeline, traces, videos, and screenshots works instantly!
+
+Or generate a fresh one locally:
 ```bash
-git clone https://github.com/AutomationByEthan/todoist-playwright-regression.git
-cd todoist-playwright-regression
-npm install
-npx playwright test                  # Run in headed mode
-npx playwright test --reporter=html  # Generate HTML report
-npx playwright show-report           # View report locally
+npx playwright test --reporter=html
+npx playwright show-report
