@@ -19,7 +19,7 @@ Production-grade example of clean, maintainable, **zero-flake** automated regres
 
 ## Sample Report
 Click to view a full example:  
-**Live Interactive Report** → [![View full HTML report with screenshots]([./report-screenshot.png)](./playwright-report/index.html](https://raw.githack.com/AutomationByEthan/todoist-playwright-regression/main/playwright-report/index.html))  
+**Live Interactive Report** → [View full report with screenshots & videos](https://raw.githack.com/AutomationByEthan/todoist-playwright-regression/main/playwright-report/index.html)
 *(Generated from real runs—includes embedded evidence for defect tracking.)*
 
 ## Quick Start
