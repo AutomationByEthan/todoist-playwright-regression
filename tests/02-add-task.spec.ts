@@ -48,8 +48,9 @@ test.describe('02_Add a Task', () => {
     await attach(page, '03 - Upcoming Page', testInfo);
 
     // === Validate Task Name ===
+    await page.locator('(//a[@aria-selected="true"]//following::a)[1]').click();
     const taskTitle = page.locator(`(//section[contains(@aria-label, "Tomorrow")]//div[text()="${TASK_NAME}"])[1]`);
-    await expect(taskTitle).toBeVisible({ timeout: 10000 });
+    await expect(taskTitle).toBeVisible({ timeout: 4000 });
     await attach(page, '04 - Task Name Validated', testInfo);
 
     testInfo.annotations.push({
@@ -59,7 +60,7 @@ test.describe('02_Add a Task', () => {
 
     // === Validate Task Description ===
     const taskDesc = page.locator(`(//section[contains(@aria-label, "Tomorrow")]//p[text()="${TASK_DESC}"])[1]`);
-    await expect(taskDesc).toBeVisible({ timeout: 10000 });
+    await expect(taskDesc).toBeVisible({ timeout: 4000 });
     await attach(page, '05 - Task Description Validated', testInfo);
 
     testInfo.annotations.push({

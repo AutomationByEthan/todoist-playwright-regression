@@ -6,6 +6,7 @@ export default defineConfig({
   timeout: 30_000,
   retries: 1,
   reporter: [['html'], ['list']],
+  //fullyParallel: true,
 
   projects: [
     // DESKTOP
