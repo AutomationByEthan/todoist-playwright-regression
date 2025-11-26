@@ -1,8 +1,9 @@
 // tests/pages/BasePage.ts
-import { Page, Locator } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 
 export class BasePage {
   readonly page: Page;
+  private accountMenu = 'xpath=//button[@aria-label="Settings"]';
 
   constructor(page: Page) {
     this.page = page;
@@ -49,4 +50,12 @@ async clickByCoordinates(selector: string) {
     await this.page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
   }
 }
+
+async logout() {
+    await this.waitAndClick(this.accountMenu);
+    await this.page.waitForTimeout(3000);
+    await this.page.getByRole('menuitem', { name: 'Log out' }).click({ force: true });
+    await expect(this.page.getByText('Welcome back!')).toBeVisible({ timeout: 8000 });
+    console.log('Successfully logged out');
+  }
 }

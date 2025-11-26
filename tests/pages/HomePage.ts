@@ -1,10 +1,11 @@
 // tests/pages/HomePage.ts
 import { BasePage } from './BasePage';
-import { Page, expect } from '@playwright/test';
+import { Page, expect, } from '@playwright/test';
 
 export class HomePage extends BasePage {
   // === LOCATORS (Private — only this page uses them) ===
-  private accountMenu = 'xpath=//button[@aria-label="Settings"]';
+  private readonly accountMenuTrigger = this.page.getByRole('button', { name: /settings|account|avatar/i });
+  private readonly accountMenuLocator = this.page.getByRole('menu');
   private logoutBtn = 'xpath=//span[text()="Log out"]';
   private userName = 'xpath=(//div[@role="menuitem"]/span/span)[1]';
 
@@ -19,7 +20,8 @@ export class HomePage extends BasePage {
   }
   
   async openAccountMenu() {
-    await this.waitAndClick(this.accountMenu);
+     await this.accountMenuTrigger.click();
+    await this.accountMenuLocator.waitFor({ state: 'visible' });
   }
 
   async clickLogout() {

@@ -37,7 +37,6 @@ test.describe('01_Login and Out', () => {
     await homePage.waitForLoad();
     console.log(`User Successfully Logged Into the Application`);
     await homePage.openAccountMenu();
-    await page.waitForTimeout(1000);
     await attachScreenshot(page, '04 - Account Dropdown', testInfo);
 
     const userName = await homePage.getUserName();

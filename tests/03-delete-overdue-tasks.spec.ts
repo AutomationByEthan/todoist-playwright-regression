@@ -2,12 +2,14 @@
 import { test, expect } from '@playwright/test';
 import { LoginPage, HomePage } from './pages';
 import * as dotenv from 'dotenv';
+import { BasePage } from './pages/BasePage';
 dotenv.config();
 
 test.describe('03_Delete All Overdue Tasks', () => {
   test('delete all overdue tasks → validate none remain → logout', async ({ page }, testInfo) => {
     const loginPage = new LoginPage(page);
     const homePage = new HomePage(page);
+    const basePage = new BasePage(page);
 
     let deletedCount = 0;
 
@@ -38,7 +40,7 @@ test.describe('03_Delete All Overdue Tasks', () => {
       await page.getByRole('button', { name: 'Delete' }).click();
 
       // Small wait for deletion animation
-      await page.waitForTimeout(800);
+      await page.waitForTimeout(3000);
     }
 
     // === Final State ===
@@ -64,8 +66,7 @@ test.describe('03_Delete All Overdue Tasks', () => {
     });
 
     // === Logout ===
-    await homePage.openAccountMenu();
-    await loginPage.logout();
+    await basePage.logout();
     await attach(page, '04 - Logged Out', testInfo);
   });
 });

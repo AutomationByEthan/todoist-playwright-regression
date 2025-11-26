@@ -1,0 +1,91 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+  # Runs on PRs
+  pull_request:
+    branches: ["main"]
+
+  # Also run on pushes to any branch (for previews!)
+  workflow_dispatch:  # Allows manual runs too
+
+  # Trigger for branch pushes
+  push:
+    branches-ignore: ["main"]  # Ignore main since it has its own deploy
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Optional: If your site uses a build tool (e.g., Jekyll, Hugo), add build steps here
+      # For plain HTML/CSS/JS like yours, this is enough — no build needed!
+      # If you have a build command, uncomment below:
+      # - name: Build with [tool]
+      #   run: [your-build-command, e.g., npm run build]
+
+    # Upload artifact (what gets deployed)
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: '.'  # Deploys everything in the root (change to '/docs' if needed)
+
+  # Deploy job for main (production)
+  deploy-main:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'  # Only for main
+    steps:
+      - name: Deploy to production
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # Deploy job for previews (branches/PRs)
+  deploy-preview:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref != 'refs/heads/main'  # For PRs or other branches
+    permissions:
+      pull-requests: write  # To comment the preview URL on PRs
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy preview
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      # Optional: Auto-comment the preview URL on PRs (super handy!)
+      - name: Comment preview URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = '${{ steps.deployment.outputs.page_url }}';
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🔍 **Preview ready!** Check your changes live: ' + url
+            });
