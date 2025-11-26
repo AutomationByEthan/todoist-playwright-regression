@@ -1,0 +1,30 @@
+name: Generate Report
+
+on: [push]  # Runs on every push to main (add branches: [main] for specificity)
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20  # Matches your package.json engine
+      
+      - run: npm ci  # Installs deps (faster than npm install)
+      
+      - name: Create .env file
+        run: |
+          echo "TODOIST_API_TOKEN=${{ secrets.TODOIST_API_TOKEN }}" > .env
+          # Add other vars like ADMIN_USER, ADMIN_PASS if needed from secrets
+      
+      - run: npx playwright install --with-deps  # Installs browsers + system deps
+      
+      - run: npx playwright test --reporter=html --project=chromium  # Generates report (add --headed for screenshots if wanted)
+      
+      - uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30  # Keeps artifacts for 30 days; adjust as needed
